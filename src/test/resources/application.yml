@@ -1,0 +1,31 @@
+# 测试专用配置：连独立测试库 taskflow_test，不污染开发库 taskflow
+# 注意：src/test/resources 会覆盖 src/main/resources 的同名文件，所以这里要写全
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    # createDatabaseIfNotExist=true 会在连接时自动建 taskflow_test 库
+    url: jdbc:mysql://${DB_HOST:localhost}:${DB_PORT:3306}/taskflow_test?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai&useSSL=false&allowPublicKeyRetrieval=true&createDatabaseIfNotExist=true
+    username: ${DB_USERNAME:root}
+    password: ${DB_PASSWORD:}
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+  # 每次启动跑 schema.sql 建表（IF NOT EXISTS 幂等）
+  sql:
+    init:
+      mode: always
+      schema-locations: classpath:schema.sql
+
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  global-config:
+    banner: false
+
+# 测试专用 JWT 密钥，不依赖环境变量 JWT_SECRET
+jwt:
+  secret: test-secret-key-for-taskflow-integration-tests-0123456789
+  access-expiration: 1800000
+  refresh-expiration: 604800000

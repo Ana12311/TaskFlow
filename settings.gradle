@@ -1,0 +1,10 @@
+pluginManagement {
+    repositories {
+        // 阿里云镜像源：加速 Gradle 插件 + 依赖下载（Spring Boot 插件也从这里拉）
+        maven { url 'https://maven.aliyun.com/repository/gradle-plugin' }
+        maven { url 'https://maven.aliyun.com/repository/public' }
+        gradlePluginPortal()
+        mavenCentral()
+    }
+}
+rootProject.name = 'TaskFlow'

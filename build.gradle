@@ -1,0 +1,56 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.3.5'
+    id 'io.spring.dependency-management' version '1.1.6'
+}
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+description = 'TaskFlow'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+
+repositories {
+    // 阿里云镜像源，国内下载依赖更快（未命中会回退 Maven Central）
+    maven { url 'https://maven.aliyun.com/repository/public' }
+    mavenCentral()
+}
+
+dependencies {
+    // Web：提供 Controller、内嵌 Tomcat
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    // 安全：Spring Security，后续认证模块用
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    // 参数校验：@Valid + @NotBlank / @Email 等注解
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    // MyBatis-Plus：ORM，提供 BaseMapper / IService 简化 CRUD
+    implementation 'com.baomidou:mybatis-plus-spring-boot3-starter:3.5.9'
+    // 分页插件（3.5.9 起分页拦截器拆分到独立模块）
+    implementation 'com.baomidou:mybatis-plus-jsqlparser:3.5.9'
+    // MySQL 驱动（版本由 Spring Boot 统一管理）
+    runtimeOnly 'com.mysql:mysql-connector-j'
+    // Redis：缓存用户信息、项目任务统计
+    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+
+    // JWT：jjwt 0.12.x
+    implementation 'io.jsonwebtoken:jjwt-api:0.12.6'
+    runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.12.6'
+    runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.12.6'
+
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.springframework.security:spring-security-test'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+// 只产出可执行 bootJar，不生成 -plain.jar，便于 Docker 复制单个 jar
+tasks.named('jar') {
+    enabled = false
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}

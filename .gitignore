@@ -1,0 +1,37 @@
+# ---- Java / Gradle ----
+HELP.md
+.gradle/
+build/
+!gradle/wrapper/gradle-wrapper.jar
+bin/
+out/
+
+# ---- IDE ----
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
+.classpath
+.project
+.settings/
+.factorypath
+nbproject/
+
+# ---- 前端 ----
+node_modules/
+dist/
+
+# ---- 环境变量 / 密钥：只提交 .env.example 模板，其余一律忽略 ----
+.env
+.env.*
+!.env.example
+
+# ---- 日志 / 系统文件 ----
+*.log
+.DS_Store
+Thumbs.db
+*.swp
+
+# ---- Claude Code 本地状态（各人不同，不入库）----
+.claude/
