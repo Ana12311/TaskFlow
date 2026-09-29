@@ -1,6 +1,6 @@
 # TaskFlow
 
-一个基于 Spring Boot + Vue 3 的团队任务协作与项目管理平台。前后端分离单体架构，用于学习和实习项目展示。
+一个基于 Spring Boot 3 + Vue 3 的团队任务协作与项目管理平台。覆盖「团队 → 项目 → 任务 → 评论/日志/通知」完整协作链路，含 JWT 认证（refresh token + 登出黑名单 + 限流）、角色权限、任务状态机、Redis 缓存与 Docker 部署。前后端分离单体架构，代码分层清晰（Controller / Service / Mapper + DTO / VO，Entity 不对外暴露），适合作为学习项目和实习作品展示。
 
 ## 功能特性
 
